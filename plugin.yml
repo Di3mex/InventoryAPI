@@ -1,0 +1,7 @@
+name: InventoryAPI
+main: de.diemex.inventorygui.InventoryAPI
+version: 0.1
+commands:
+    gui:
+        description: Root command for InventoryAPI
+        usage: /gui - Show the main menu
