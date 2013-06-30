@@ -24,6 +24,7 @@ package de.diemex.inventorygui.command;
 import de.diemex.inventorygui.InventoryAPI;
 import de.diemex.inventorygui.service.CommandHandler;
 import de.diemex.inventorygui.service.ICommand;
+import de.diemex.inventorygui.service.PermissionNode;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -47,9 +48,10 @@ public class Commander extends CommandHandler
         sender.sendMessage(" /ehm");
         sender.sendMessage("    help" + ChatColor.YELLOW + " - Show the help menu");
         sender.sendMessage("    version" + ChatColor.YELLOW + " - Show version info");
-        if (sender.hasPermission(""))
+        if (sender.hasPermission(PermissionNode.ADMIN.getNode()))
         {
             sender.sendMessage("    reload " + ChatColor.YELLOW + "- Reload the plugin");
+            sender.sendMessage("    open   " + ChatColor.YELLOW + "- Open a test menu");
         }
         return true;
     }

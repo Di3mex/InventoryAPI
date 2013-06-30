@@ -5,3 +5,10 @@ commands:
     gui:
         description: Root command for InventoryAPI
         usage: /gui - Show the main menu
+    gui open:
+        description: Open a test menu
+        usage: /gui open - Shows the test GUI
+permissions:
+    InventoryAPI.admin:
+        description: Grants access to admin commands like reload and showing of a test menu
+        default: yes
