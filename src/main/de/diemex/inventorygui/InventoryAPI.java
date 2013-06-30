@@ -1,6 +1,8 @@
 package de.diemex.inventorygui;
 
+
 import de.diemex.inventorygui.command.Commander;
+import de.diemex.inventorygui.inventory.ViewManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -10,11 +12,41 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class InventoryAPI extends JavaPlugin
 {
+    private ViewManager manager;
+
+
     @Override
-    public void onEnable() {
+    public void onEnable()
+    {
         super.onEnable();
         getCommand("gui").setExecutor(new Commander(this));
+        getViewManager();
     }
+
+
+    /**
+     * Get the ViewManager associated with the API
+     *
+     * @return view manager
+     */
+    public ViewManager getViewManager()
+    {
+        if (manager == null)
+            manager = new ViewManager(this);
+        return manager;
+    }
+
+
+    /**
+     * Use this method when you create new Views
+     *
+     * @return instance of an InventoryAPI
+     */
+    public InventoryAPI getInstance()
+    {
+        return this;
+    }
+
 
     public static String getTag()
     {
