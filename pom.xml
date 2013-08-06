@@ -5,7 +5,7 @@
     <!-- Project properties. -->
     <groupId>de.diemex.inventorygui</groupId>
     <artifactId>InventoryGUI</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>InventoryGUI</name>
     <description>An API to use minecraft inventories as a GUI</description>
     <url></url>
