@@ -40,8 +40,12 @@ public class OpenInvCommand implements ICommand
 
             TabbedListView listView = new TabbedListView("Heyo ListView", (Player)sender, plugin);
                 List<Button> buttons = new ArrayList<Button>();
-                buttons.add(new Button("Item 1", Material.ANVIL));
-                listView.createView(buttons);
+                for (int view = 0; view < 3; view++)
+                {
+                    for (int i = 0; i < 16; i++)
+                        buttons.add(new Button("Item " + i, Material.ANVIL));
+                    listView.createView(buttons);
+                }
             listView.setParent(parent);
             Button listBtn = new Button("Achievements", Material.BONE);
                 listBtn.addDescLine("Click to view all achievements");

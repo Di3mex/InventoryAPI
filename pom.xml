@@ -5,7 +5,7 @@
     <!-- Project properties. -->
     <groupId>de.diemex.inventorygui</groupId>
     <artifactId>InventoryGUI</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <name>InventoryGUI</name>
     <description>An API to use minecraft inventories as a GUI</description>
     <url></url>
@@ -118,21 +118,39 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+        <!-- Mocking -->
+        <!--EasyMock is good for mocking stuff with arguments-->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-core</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
-    <!-- maven deployment -->
-    <distributionManagement>
-        <repository>
-            <id>ehm-release</id>
-            <name>extrahardmode.com Releases</name>
-            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ehm-snapshot</id>
-            <name>extrahardmode.com Snapshots</name>
-            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins-snapshot/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <!-- Developers -->
     <developers>
@@ -143,4 +161,5 @@
             <timezone>-</timezone>
         </developer>
     </developers>
+
 </project>

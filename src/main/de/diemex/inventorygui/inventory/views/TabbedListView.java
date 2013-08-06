@@ -137,7 +137,6 @@ public class TabbedListView implements IView
             v.setSize(mSize);
         }
 
-        //TODO back to previous menu
         final int position = mViewStack.size() != 0 ? mViewStack.size() : 0; //currentPos
         if (position > 0)
         {
@@ -151,6 +150,8 @@ public class TabbedListView implements IView
                     return true;
                 }
             });
+            backButton.getLayoutParams().addGravity(LayoutGravity.BOTTOM);
+            backButton.getLayoutParams().setFixedColumn(8);
             basicView.setButton(backButton, mSize * 9 - 2); // bottom right corner, to the right we will put the next button
         }
 
@@ -167,6 +168,9 @@ public class TabbedListView implements IView
                     return true;
                 }
             });
+            nextButton.getLayoutParams().addGravity(LayoutGravity.BOTTOM);
+            nextButton.getLayoutParams().addGravity(LayoutGravity.RIGHT);
+            mViewStack.get(position - 1).setSize(mSize);
             mViewStack.get(position - 1).setButton(nextButton, mSize * 9 - 1); //bottom right corner
         }
 

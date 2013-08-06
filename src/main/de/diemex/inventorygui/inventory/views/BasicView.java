@@ -85,7 +85,10 @@ public class BasicView implements IView
     @Override
     public void setButton(final Button btn, final int index)
     {
-        Validate.isTrue(mLines * 9 > index, "Inserted index is out of bounds: " + index + "/" + mLines * 9);
+        //Validate.isTrue(mLines * 9 > index, "Inserted index is out of bounds: " + index + "/" + mLines * 9 + " in view " + mTitle + ". Contents: " + mContents);
+        //Increase size if OutOfBounds
+        if (mLines * 9 < index)
+            setSize((int) Math.ceil(index / 9.0));
         Validate.notNull(btn);
         Validate.isTrue(!mContents.containsKey(index), "Use replace to replace an existing Item");
 
@@ -250,10 +253,10 @@ public class BasicView implements IView
     @Override
     public Inventory redraw()
     {
+        mContents = LayoutParams.applyLayoutParams(mContents, mLines);
+        mInventory.clear();
         for (Map.Entry<Integer, Button> btn : mContents.entrySet())
-        {
             mInventory.setItem(btn.getKey(), btn.getValue().asItemStack());
-        }
         return mInventory;
     }
 

@@ -111,7 +111,6 @@ public class ViewManager implements Listener
         switch (event.getAction())
         {
             case CLOSE:
-                //TODO PersistentParentView
                 mOpenViews.remove(playerName);
                 break;
             case OPEN:

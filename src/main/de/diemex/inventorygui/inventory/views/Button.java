@@ -2,6 +2,7 @@ package de.diemex.inventorygui.inventory.views;
 
 
 import de.diemex.inventorygui.inventory.service.ClickKind;
+import de.diemex.inventorygui.inventory.service.LayoutParams;
 import de.diemex.inventorygui.inventory.service.OnClickListener;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -26,9 +27,19 @@ public class Button
     private String mTitle;
 
     /**
+     * Count to be displayed
+     */
+    private int mCount = 1;
+
+    /**
      * Description which will be displayed as lore on the Item
      */
     private List<String> mDescription = new ArrayList<String>();
+
+    /**
+     * Parameters to lay this Button out
+     */
+    private LayoutParams mLayoutParams = new LayoutParams();
 
     /**
      * Material to use as an icon
@@ -49,10 +60,8 @@ public class Button
     /**
      * Your trusty constructor
      *
-     * @param title
-     *         the name of this icon
-     * @param icon
-     *         Material to use as an "icon"
+     * @param title the name of this icon
+     * @param icon  Material to use as an "icon"
      */
     public Button(String title, Material icon)
     {
@@ -64,10 +73,8 @@ public class Button
     /**
      * Your trusty constructor
      *
-     * @param title
-     *         the name of this icon
-     * @param icon
-     *         MaterialData to use as an "icon", can include meta, TODO fix not working  meta
+     * @param title the name of this icon
+     * @param icon  MaterialData to use as an "icon", can include meta, TODO fix not working  meta
      */
     public Button(String title, MaterialData icon)
     {
@@ -79,8 +86,7 @@ public class Button
     /**
      * Adds a line of text to the lore
      *
-     * @param line
-     *         line to add
+     * @param line line to add
      */
     public void addDescLine(String line)
     {
@@ -94,8 +100,7 @@ public class Button
     /**
      * Set the lore to the list of lines, overwrites existing lines
      *
-     * @param lines
-     *         lines to set
+     * @param lines lines to set
      */
     public void setDescription(List<String> lines)
     {
@@ -103,6 +108,24 @@ public class Button
         mDescription = lines;
         //Force redraw of Item
         mItem = null;
+    }
+
+
+    /**
+     * Get count
+     */
+    public int getCount()
+    {
+        return mCount;
+    }
+
+
+    /**
+     * Set the number to display on this Button, meaning the item count
+     */
+    public void setCount(int mCount)
+    {
+        this.mCount = mCount;
     }
 
 
@@ -122,16 +145,14 @@ public class Button
     /**
      * Create an ItemStack for this Button
      *
-     * @param title
-     *         as in the name of the icon
-     * @param data
-     *         icon to use
+     * @param title as in the name of the icon
+     * @param data  icon to use
      *
      * @return an ItemStack
      */
     private ItemStack createItemStack(String title, MaterialData data)
     {
-        ItemStack item = new ItemStack(data.getItemType());
+        ItemStack item = new ItemStack(data.getItemType(), mCount);
         ItemMeta meat = item.getItemMeta();
         meat.setDisplayName(title);
         meat.setLore(mDescription);
@@ -143,8 +164,7 @@ public class Button
     /**
      * Called when a Player clicks on this Button
      *
-     * @param type
-     *         click type left/right
+     * @param type click type left/right
      *
      * @return if successful
      */
@@ -166,11 +186,28 @@ public class Button
     }
 
 
+    public boolean hasLayoutParams()
+    {
+        return !mLayoutParams.isEmpty();
+    }
+
+
+    public void setLayoutParams(LayoutParams layoutParams)
+    {
+        mLayoutParams = layoutParams;
+    }
+
+
+    public LayoutParams getLayoutParams()
+    {
+        return mLayoutParams;
+    }
+
+
     /**
      * Set the listener which will be called when a user clicks this item
      *
-     * @param listener
-     *         listener to set
+     * @param listener listener to set
      */
     public void setOnClickListener(OnClickListener listener)
     {
@@ -181,8 +218,7 @@ public class Button
     /**
      * Use this method if you want to do something special on RightClick.
      *
-     * @param listener
-     *         listener to set
+     * @param listener listener to set
      */
     public void setOnRightClickListener(OnClickListener listener)
     {
@@ -206,5 +242,12 @@ public class Button
             default:
                 throw new UnsupportedOperationException("Not a known clicktype " + type.name());
         }
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return mTitle;
     }
 }
