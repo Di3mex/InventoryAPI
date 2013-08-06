@@ -152,6 +152,20 @@
         </dependency>
     </dependencies>
 
+    <!-- maven deployment -->
+    <distributionManagement>
+        <repository>
+            <id>ehm-release</id>
+            <name>extrahardmode.com Releases</name>
+            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ehm-snapshot</id>
+            <name>extrahardmode.com Snapshots</name>
+            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <!-- Developers -->
     <developers>
         <developer>
