@@ -9,9 +9,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public class TestLayoutParams
 {
     private LayoutParams params;

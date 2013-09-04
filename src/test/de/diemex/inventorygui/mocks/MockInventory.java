@@ -13,20 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public class MockInventory implements Inventory
 {
     private ItemStack[] contents;
 
-    public MockInventory (int size)
+
+    public MockInventory(int size)
     {
         contents = new ItemStack[size];
     }
 
+
     @Override
-    public void setItem (int index, ItemStack item)
+    public void setItem(int index, ItemStack item)
     {
         contents[index] = item;
     }
@@ -47,13 +47,14 @@ public class MockInventory implements Inventory
 
 
     @Override
-    public ItemStack getItem (int index)
+    public ItemStack getItem(int index)
     {
         return contents[index];
     }
 
+
     @Override
-    public void clear ()
+    public void clear()
     {
         Arrays.fill(contents, null);
     }

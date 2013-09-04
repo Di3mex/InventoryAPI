@@ -1,18 +1,12 @@
 package de.diemex.inventorygui.inventory.service;
 
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public enum ViewStatus
 {
-    /**
-     * The inventory is not being shown to the player
-     */
+    /** The inventory is not being shown to the player */
     CLOSED,
 
-    /**
-     * The inventory is being shown to the player
-     */
+    /** The inventory is being shown to the player */
     OPENED
 }

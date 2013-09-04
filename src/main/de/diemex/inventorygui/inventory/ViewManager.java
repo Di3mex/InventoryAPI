@@ -1,56 +1,54 @@
 package de.diemex.inventorygui.inventory;
 
 
-import de.diemex.inventorygui.InventoryAPI;
 import de.diemex.inventorygui.events.ViewEvent;
 import de.diemex.inventorygui.inventory.service.ClickKind;
 import de.diemex.inventorygui.inventory.service.IView;
-import de.diemex.inventorygui.inventory.views.BasicView;
 import de.diemex.inventorygui.inventory.views.Button;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
+ * A ViewManager handles all the clicking and editing of an Inventory. You have to create one for the OnClickListeners to work, or better said for anything to work at all.
+ *
  * @author Diemex
  */
 public class ViewManager implements Listener
 {
-    /**
-     * Instance of the API to which this ViewManager is bound
-     */
-    private final InventoryAPI mPlugin;
+    /** Instance of the API to which this ViewManager is bound */
+    private final Plugin mPlugin;
 
-    /**
-     * References to open inventories
-     */
+    /** References to open inventories */
     private Map<String, IView> mOpenViews = new HashMap<String, IView>();
 
 
-    public ViewManager(InventoryAPI plugin)
+    /**
+     * Creates the ViewManager and most importantly registers the events to the plugin
+     *
+     * @param plugin owning plugin
+     */
+    public ViewManager(Plugin plugin)
     {
         mPlugin = plugin;
         mPlugin.getServer().getPluginManager().registerEvents(this, mPlugin);
     }
 
 
-    /**
-     * Called for normal clicks like left/right click and shiftclick
-     */
+    /** Called for normal clicks like left/right click and shiftclick */
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onInventoryClick(InventoryClickEvent event)
+    private void onInventoryClick(InventoryClickEvent event)
     {
-        //TODO add an option for a persistent GUI
         final Player player = event.getWhoClicked() instanceof Player ? (Player) event.getWhoClicked() : null;
 
         if (player != null && mOpenViews.containsKey(player.getName()))
@@ -80,11 +78,10 @@ public class ViewManager implements Listener
     /**
      * When a player "drags" items in his inventory
      *
-     * @param event
-     *         Event that occurred
+     * @param event Event that occurred
      */
     @EventHandler
-    public void onInventoryDrag(InventoryDragEvent event)
+    private void onInventoryDrag(InventoryDragEvent event)
     {
         final Player player = event.getWhoClicked() instanceof Player ? (Player) event.getWhoClicked() : null;
 
@@ -104,8 +101,9 @@ public class ViewManager implements Listener
     }
 
 
+    /** Called when a View is closed by a player */
     @EventHandler
-    public void onViewEvent(ViewEvent event)
+    private void onViewEvent(ViewEvent event)
     {
         final String playerName = event.getPlayer().getName();
         switch (event.getAction())
@@ -120,8 +118,9 @@ public class ViewManager implements Listener
     }
 
 
+    /** Called when an Inventory is closed by a Player */
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent event)
+    private void onInventoryClose(InventoryCloseEvent event)
     {
         if (event.getPlayer() instanceof Player)
         {

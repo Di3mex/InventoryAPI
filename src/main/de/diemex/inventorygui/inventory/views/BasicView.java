@@ -1,7 +1,6 @@
 package de.diemex.inventorygui.inventory.views;
 
 
-import de.diemex.inventorygui.InventoryAPI;
 import de.diemex.inventorygui.events.ViewEvent;
 import de.diemex.inventorygui.inventory.service.*;
 import org.apache.commons.lang.Validate;
@@ -14,60 +13,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A BasicView is basically a standard container with no special functionality and probably what you will use most of the time.
+ *
  * @author Diemex
  */
 public class BasicView implements IView
 {
-    /**
-     * Plugin instance
-     */
+    /** Plugin instance */
     private final Plugin mPlugin;
 
-    /**
-     * Inventory is bound to this Player
-     */
+    /** Inventory is bound to this Player */
     private final Player mPlayer;
 
-    /**
-     * Inventory representing our GUI
-     */
+    /** Inventory representing our GUI */
     private Inventory mInventory;
 
-    /**
-     * Is this View viewed by the Player?
-     */
+    /** Is this View viewed by the Player? */
     private ViewStatus mStatus;
 
-    /**
-     * Title of this inventory
-     */
+    /** Title of this inventory */
     private String mTitle;
 
-    /**
-     * The lines that this inventory currently has
-     */
+    /** The lines that this inventory currently has */
     private int mLines;
 
-    /**
-     * Contents of this inventory
-     */
+    /** Contents of this inventory */
     private Map<Integer, Button> mContents = new HashMap<Integer, Button>();
 
-    /**
-     * If this exists pressing back will return you to the parent IView
-     */
+    /** If this exists pressing back will return you to the parent IView */
     private IView mParent;
 
-    /**
-     * What to do when this View gets closed
-     */
+    /** What to do when this View gets closed */
     private ViewExitBehaviour mOnExit = ViewExitBehaviour.CLOSE;
 
 
+    /**
+     * Create a BasicView, doesn't open it yet
+     *
+     * @param title  title text to display on the top
+     * @param lines  how many rows do we need, one row holds 9 {@link de.diemex.inventorygui.inventory.views.Button}s
+     * @param player main player for whom this inventory is meant
+     * @param plugin owning plugin for running tasks and opening the inventory
+     */
     public BasicView(String title, int lines, final Player player, Plugin plugin)
     {
         Validate.notNull(plugin);
-        Validate.isTrue(plugin instanceof InventoryAPI, "Plugin has to be an instance of InventoryAPI");
         Validate.notNull(player);
         Validate.isTrue(lines <= 6 && lines >= 0, "Inventories bigger than 6 lines get glitched out. Input: " + lines);
         Validate.notNull(title);

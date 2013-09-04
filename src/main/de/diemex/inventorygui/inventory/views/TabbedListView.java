@@ -1,7 +1,6 @@
 package de.diemex.inventorygui.inventory.views;
 
 
-import de.diemex.inventorygui.InventoryAPI;
 import de.diemex.inventorygui.events.ViewEvent;
 import de.diemex.inventorygui.inventory.service.*;
 import org.apache.commons.lang.Validate;
@@ -9,74 +8,50 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An abstraction of a tabbed UI, with back and forward buttons allowing you to navigate through the UI easily. A
- * TabbedListView always has the same title. It is meant to be used for Lists of Items which do not require a special
- * formatting and just need to be displayed in the form of a List
+ * An abstraction of a tabbed UI, with back and forward buttons allowing you to navigate through the UI easily. A TabbedListView always has the same title. It is meant to be used
+ * for Lists of Items which do not require a special formatting and just need to be displayed in the form of a List
  *
  * @author Diemex
  */
 public class TabbedListView implements IView
 {
-    /**
-     * Player viewing this TabbedListView
-     */
+    /** Player viewing this TabbedListView */
     private final Player mPlayer;
 
-    /**
-     * A reference to the plugin owning this TabbedListView, we need it for the tasks to switch between the UI
-     */
+    /** A reference to the plugin owning this TabbedListView, we need it for the tasks to switch between the UI */
     private final Plugin mPlugin;
 
-    /**
-     * Inventory in which to display this TabbedListView
-     */
+    /** Inventory in which to display this TabbedListView */
     private Inventory mInventory;
 
-    /**
-     * Title of this TabbedListView
-     */
+    /** Title of this TabbedListView */
     private final String mTitle;
 
-    /**
-     * The size of the inventories in this TabbedListView (all the same)
-     */
+    /** The size of the inventories in this TabbedListView (all the same) */
     private int mSize;
 
-    /**
-     * The view which is currently being shown, -1 = no View
-     */
+    /** The view which is currently being shown, -1 = no View */
     private int mViewShowing = -1;
 
-    /**
-     * The status in which this view is currently in, like showing, hidden
-     */
+    /** The status in which this view is currently in, like showing, hidden */
     private ViewStatus mStatus;
 
-    /**
-     * Parent to go back to when exiting this TabbedListView
-     */
+    /** Parent to go back to when exiting this TabbedListView */
     private IView mParent;
 
-    /**
-     * One dimensional Stack of Popups, user can move back and forth
-     */
+    /** One dimensional Stack of Popups, user can move back and forth */
     private List<IView> mViewStack;
 
-    /**
-     * Icon for next, back buttons
-     */
+    /** Icon for next, back buttons */
     private Material BACK = Material.GOLD_PLATE, NEXT = Material.IRON_PLATE;
 
-    /**
-     * What to do when this View gets closed
-     */
+    /** What to do when this View gets closed */
     private ViewExitBehaviour mOnExit = ViewExitBehaviour.CLOSE;
 
 
@@ -85,13 +60,10 @@ public class TabbedListView implements IView
      * <p/>
      * Will assume that it has no parent and therefore exit the Menu when clicking back.
      *
-     * @param player
-     * @param plugin
- *         owning Plugin
+     * @param plugin owning Plugin
      */
     public TabbedListView(String title, Player player, Plugin plugin)
     {
-        Validate.isTrue(plugin instanceof InventoryAPI, "Plugin has to be an instance of InventoryAPI");
         mTitle = title;
         mPlayer = player;
         mPlugin = plugin;
@@ -101,9 +73,7 @@ public class TabbedListView implements IView
     }
 
 
-    /**
-     * @deprecated until I know what to do here
-     */
+    /** @deprecated until I know what to do here */
     public void addView(IView menu)
     {
         mViewStack.add(menu);
@@ -114,11 +84,9 @@ public class TabbedListView implements IView
     /**
      * Create a IView from the list of items.
      * <p/>
-     * Use this if you only want to display stuff lists of items with no particular functionality. It ensures that there
-     * is enough space for back and next (if needed) buttons
+     * Use this if you only want to display stuff lists of items with no particular functionality. It ensures that there is enough space for back and next (if needed) buttons
      *
-     * @param items
-     *         list of items from which to create the view
+     * @param items list of items from which to create the view
      */
     public void createView(List<Button> items)
     {
@@ -181,8 +149,7 @@ public class TabbedListView implements IView
     /**
      * Switches the View to the next one
      *
-     * @param which
-     *         which View to switch to
+     * @param which which View to switch to
      */
     public void swapView(final int which)
     {
@@ -208,8 +175,7 @@ public class TabbedListView implements IView
     /**
      * Show the View with the given number.
      *
-     * @param which
-     *         number of view to show
+     * @param which number of view to show
      */
     public void showView(final int which)
     {
@@ -244,9 +210,7 @@ public class TabbedListView implements IView
     }
 
 
-    /**
-     * Shows the first View in this TabbedListView
-     */
+    /** Shows the first View in this TabbedListView */
     @Override
     public void show()
     {
@@ -260,8 +224,7 @@ public class TabbedListView implements IView
     /**
      * Closes the View currently being shown.
      *
-     * @throws IllegalStateException
-     *         if no View is being shown
+     * @throws IllegalStateException if no View is being shown
      */
     @Override
     public void close()
@@ -329,10 +292,8 @@ public class TabbedListView implements IView
     /**
      * Set the Item for the currently displayed View or throws an error
      *
-     * @param btn
-     *         btn to set
-     * @param index
-     *         position to set
+     * @param btn   btn to set
+     * @param index position to set
      */
     @Override
     public void setButton(Button btn, int index)

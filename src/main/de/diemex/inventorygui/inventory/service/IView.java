@@ -4,38 +4,29 @@ package de.diemex.inventorygui.inventory.service;
 import de.diemex.inventorygui.inventory.views.Button;
 import org.bukkit.inventory.Inventory;
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public interface IView
 {
-    /**
-     * Shows the View. IMPORTANT!!!! A View has to call a ViewEvent with Action.OPEN for the onClickListeners to work
-     */
+    /** Shows the View. */ /*IMPORTANT!!!! A View has to call a ViewEvent with Action.OPEN for the onClickListeners to work */
     public void show();
 
-    /**
-     * Closes the View IMPORTANT!!!! A View has to call a ViewEvent with Action.CLOSE for the onClickListeners to work
-     */
+    /** Closes the View. */ /* IMPORTANT!!!! A View has to call a ViewEvent with Action.CLOSE for the onClickListeners to work */
     public void close();
 
-    /**
-     * Sets an Item at a specific position
-     */
+    /** Sets a Button at a specific position */
     public void setButton(Button btn, int index);
 
     /**
      * Get the Button at a specific Position in the View
      *
-     * @param index
-     *         position in the View
+     * @param index position in the View
      *
      * @return button
      */
     public Button getButton(int index);
 
     /**
-     * Redraw the UI
+     * Redraw the UI, recreates the Inventory
      *
      * @return the new UI
      */
@@ -51,8 +42,7 @@ public interface IView
     /**
      * Set the size of this IView in lines
      *
-     * @param lines
-     *         lines
+     * @param lines lines
      */
     public void setSize(int lines);
 
@@ -66,26 +56,22 @@ public interface IView
     /**
      * Open another View when clicking on a button with a certain id
      *
-     * @param buttonId
-     *         id of the button
-     * @param other
-     *         other View to open
+     * @param buttonId id of the button
+     * @param other    other View to open
      */
     public void setOnClick(final int buttonId, final IView other);
 
     /**
      * Close this View and open another
      *
-     * @param other
-     *         other View to open
+     * @param other other View to open
      */
     public void openOtherView(final IView other);
 
     /**
      * Set the parent. If set and this View the View will return to the parent on close
      *
-     * @param parent
-     *         parent View to set and return to
+     * @param parent parent View to set and return to
      */
     public void setParent(IView parent);
 }

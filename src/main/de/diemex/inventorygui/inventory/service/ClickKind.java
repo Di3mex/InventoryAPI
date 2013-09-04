@@ -1,9 +1,7 @@
 package de.diemex.inventorygui.inventory.service;
 
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public enum ClickKind
 {
     LEFT,

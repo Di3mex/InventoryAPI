@@ -8,9 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author Diemex
- */
+/** @author Diemex */
 public class LayoutParams
 {
     private final Set<LayoutGravity> gravities = new HashSet<LayoutGravity>();
@@ -39,8 +37,7 @@ public class LayoutParams
     /**
      * When you want to have a button in a specific column
      *
-     * @param column
-     *         column or -1 to clear the column
+     * @param column column or -1 to clear the column
      */
     public void setFixedColumn(int column)
     {
@@ -73,8 +70,7 @@ public class LayoutParams
     /**
      * When you want to have a button in a specific row
      *
-     * @param row
-     *         row or -1 to clear the row
+     * @param row row or -1 to clear the row
      */
     public void setFixedRow(int row)
     {
@@ -108,8 +104,7 @@ public class LayoutParams
      * Apply the LayoutParams to the View
      *
      * @param contents contents (current layout) of the View
-     * @param lines how many lines the inventory has
-     * @return
+     * @param lines    how many lines the inventory has
      */
     public static Map<Integer, Button> applyLayoutParams(Map<Integer, Button> contents, int lines)
     {
@@ -131,7 +126,7 @@ public class LayoutParams
             LayoutParams params = entry.getValue().getLayoutParams();
 
             int column = params.hasFixedColumn() ? params.getFixedColumn() : position % 9;
-            int row = params.hasFixedRow() ? params.getFixedRow() : (int) Math.floor(position/9.0);
+            int row = params.hasFixedRow() ? params.getFixedRow() : (int) Math.floor(position / 9.0);
 
 
             //Force Fixed Columns
@@ -140,8 +135,7 @@ public class LayoutParams
                 {
                     moveButton(contents, position, row * 9 + column);
                     position = row * 9 + column;
-                }
-                else //Let gravity take over
+                } else //Let gravity take over
                     params.addGravity(LayoutGravity.BOTTOM);
 
             //Force Fixed Rows
@@ -150,8 +144,7 @@ public class LayoutParams
                 {
                     moveButton(contents, position, row * 9 + column);
                     position = row * 9 + column;
-                }
-                else //Let gravity take over
+                } else //Let gravity take over
                     params.addGravity(LayoutGravity.RIGHT);
 
 
@@ -217,10 +210,8 @@ public class LayoutParams
     /**
      * Move a button to a new position while keeping the Button
      *
-     * @param oldPos
-     *         old position of the button
-     * @param newPos
-     *         new position to move to
+     * @param oldPos old position of the button
+     * @param newPos new position to move to
      */
     private static Map<Integer, Button> moveButton(Map<Integer, Button> contents, int oldPos, int newPos)
     {

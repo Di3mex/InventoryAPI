@@ -21,39 +21,25 @@ public class Button
 {
     private ItemStack mItem;
 
-    /**
-     * Title of the Button
-     */
+    /** Title of the Button */
     private String mTitle;
 
-    /**
-     * Count to be displayed
-     */
+    /** Count to be displayed */
     private int mCount = 1;
 
-    /**
-     * Description which will be displayed as lore on the Item
-     */
+    /** Description which will be displayed as lore on the Item */
     private List<String> mDescription = new ArrayList<String>();
 
-    /**
-     * Parameters to lay this Button out
-     */
+    /** Parameters to lay this Button out */
     private LayoutParams mLayoutParams = new LayoutParams();
 
-    /**
-     * Material to use as an icon
-     */
+    /** Material to use as an icon */
     private MaterialData mIcon;
 
-    /**
-     * Will be called if this Item is to be clicked
-     */
+    /** Will be called if this Item is to be clicked */
     private OnClickListener mOnClickListener;
 
-    /**
-     * If set and this is a right click this listener will be called instead
-     */
+    /** If set and this is a right click this listener will be called instead */
     private OnClickListener mOnRightClickListener;
 
 
@@ -111,18 +97,14 @@ public class Button
     }
 
 
-    /**
-     * Get count
-     */
+    /** Get count */
     public int getCount()
     {
         return mCount;
     }
 
 
-    /**
-     * Set the number to display on this Button, meaning the item count
-     */
+    /** Set the number to display on this Button, meaning the item count */
     public void setCount(int mCount)
     {
         this.mCount = mCount;
