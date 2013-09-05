@@ -4,6 +4,7 @@ package de.diemex.inventorylib.inventory.views;
 import de.diemex.inventorylib.inventory.service.ClickKind;
 import de.diemex.inventorylib.inventory.service.LayoutParams;
 import de.diemex.inventorylib.inventory.service.OnClickListener;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -46,11 +47,12 @@ public class Button
     /**
      * Your trusty constructor
      *
-     * @param title the name of this icon
-     * @param icon  Material to use as an "icon"
+     * @param title the name of this icon, can be null or "" if you don't want a special title
+     * @param icon  Material to use as an "icon", can't be null
      */
     public Button(String title, Material icon)
     {
+        Validate.notNull(icon);
         this.mTitle = title;
         this.mIcon = new MaterialData(icon);
     }
@@ -59,13 +61,64 @@ public class Button
     /**
      * Your trusty constructor
      *
-     * @param title the name of this icon
+     * @param title the name of this icon, can be null or "" if you don't want a special title
      * @param icon  MaterialData to use as an "icon", can include meta, TODO fix not working  meta
      */
     public Button(String title, MaterialData icon)
     {
+        Validate.notNull(icon);
         this.mTitle = title;
         this.mIcon = icon;
+    }
+
+
+    /**
+     * Get the title to be displayed
+     *
+     * @return title
+     */
+    public String getTitle()
+    {
+        return mTitle;
+    }
+
+
+    /**
+     * Set the title to be displayed, supply null or "" to clear the title
+     *
+     * @param mTitle new title to set
+     */
+    public void setTitle(String mTitle)
+    {
+        this.mTitle = mTitle;
+    }
+
+
+    /**
+     * Get the icon including its MaterialData
+     *
+     * @return MaterialData which includes damageValues
+     */
+    public MaterialData getIcon()
+    {
+        return mIcon;
+    }
+
+
+    public void setIcon(Material icon)
+    {
+        mIcon = new MaterialData(icon);
+    }
+
+
+    /**
+     * Set the Icon to MaterialData
+     *
+     * @param mIcon icon to set
+     */
+    public void setIcon(MaterialData mIcon)
+    {
+        this.mIcon = mIcon;
     }
 
 
@@ -94,6 +147,12 @@ public class Button
         mDescription = lines;
         //Force redraw of Item
         mItem = null;
+    }
+
+
+    public List<String> getDescription()
+    {
+        return mDescription;
     }
 
 
@@ -136,8 +195,10 @@ public class Button
     {
         ItemStack item = new ItemStack(data.getItemType(), mCount);
         ItemMeta meat = item.getItemMeta();
-        meat.setDisplayName(title);
-        meat.setLore(mDescription);
+        if (!title.isEmpty())
+            meat.setDisplayName(title);
+        if (!mDescription.isEmpty())
+            meat.setLore(mDescription);
         item.setItemMeta(meat);
         return item;
     }

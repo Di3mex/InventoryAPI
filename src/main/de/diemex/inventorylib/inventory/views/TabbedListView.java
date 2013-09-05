@@ -177,7 +177,7 @@ public class TabbedListView implements IView
      *
      * @param which number of view to show
      */
-    public void showView(final int which)
+    public void showView(final int which, final Player player)
     {
         Validate.isTrue(mViewStack.size() > which && which >= 0, "Tried to show View number " + which + " but there are only " + mViewStack.size() + "(-1) Views to show");
 
@@ -190,7 +190,7 @@ public class TabbedListView implements IView
                 mStatus = ViewStatus.OPENED;
                 mViewShowing = which;
 
-                ViewEvent openEvent = new ViewEvent(mPlayer, this, ViewEvent.ViewAction.OPEN);
+                ViewEvent openEvent = new ViewEvent(player, this, ViewEvent.ViewAction.OPEN);
                 mPlugin.getServer().getPluginManager().callEvent(openEvent);
 
                 if (!openEvent.isCancelled())
@@ -200,13 +200,30 @@ public class TabbedListView implements IView
                         public void run()
                         {
                             mInventory = mViewStack.get(which).redraw();
-                            mPlayer.openInventory(mInventory);
+                            player.openInventory(mInventory);
                         }
                     });
                 break;
             default:
                 throw new UnsupportedOperationException("Status " + mStatus.name() + " not implemented!");
         }
+    }
+
+
+    public void showView(final int which)
+    {
+        showView(which, mPlayer);
+    }
+
+
+    /** Shows the first View in this TabbedListView */
+    @Override
+    public void show(Player player)
+    {
+        if (mViewStack.isEmpty())
+            throw new IllegalStateException("No Views have been added to the TabbedListView!");
+
+        showView(0, player);
     }
 
 
@@ -217,7 +234,7 @@ public class TabbedListView implements IView
         if (mViewStack.isEmpty())
             throw new IllegalStateException("No Views have been added to the TabbedListView!");
 
-        showView(0);
+        showView(0, mPlayer);
     }
 
 
@@ -227,7 +244,7 @@ public class TabbedListView implements IView
      * @throws IllegalStateException if no View is being shown
      */
     @Override
-    public void close()
+    public void close(Player player)
     {
         switch (mStatus)
         {
@@ -243,11 +260,11 @@ public class TabbedListView implements IView
                     case RETURN_TO_PARENT:
                     case RETURN_TO_INV:
                     {
-                        ViewEvent closeEvent = new ViewEvent(mPlayer, this, ViewEvent.ViewAction.CLOSE);
+                        ViewEvent closeEvent = new ViewEvent(player, this, ViewEvent.ViewAction.CLOSE);
                         mPlugin.getServer().getPluginManager().callEvent(closeEvent);
                         if (!closeEvent.isCancelled())
                         {
-                            mPlayer.closeInventory();
+                            player.closeInventory();
                             mViewShowing = -1; //= not showing
                             mStatus = ViewStatus.CLOSED;
                         }
@@ -286,6 +303,13 @@ public class TabbedListView implements IView
             default:
                 throw new UnsupportedOperationException(mStatus.name() + " hasn't been implemented yet!");
         }
+    }
+
+
+    @Override
+    public void close()
+    {
+        close(mPlayer);
     }
 
 

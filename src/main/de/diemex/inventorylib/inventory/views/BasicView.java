@@ -1,16 +1,17 @@
 package de.diemex.inventorylib.inventory.views;
 
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import de.diemex.inventorylib.events.ViewEvent;
 import de.diemex.inventorylib.inventory.service.*;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A BasicView is basically a standard container with no special functionality and probably what you will use most of the time.
@@ -45,6 +46,9 @@ public class BasicView implements IView
 
     /** What to do when this View gets closed */
     private ViewExitBehaviour mOnExit = ViewExitBehaviour.CLOSE;
+
+    /** Table containing all slots that are editable for a given player. */
+    private Table<String, Integer, Boolean> mEditableSlots = HashBasedTable.create();
 
 
     /**
@@ -132,8 +136,8 @@ public class BasicView implements IView
     @Override
     public Button getButton(int index)
     {
-        Validate.isTrue(index < getSlots(), "Item at index " + index + " doesn't exist. Contents: " + Arrays.toString(mInventory.getContents()));
-        return mContents.get(index);
+        //Validate.isTrue(index < getSlots(), "Item at index " + index + " doesn't exist. Contents: " + Arrays.toString(mInventory.getContents()));
+        return mContents.containsKey(index) ? mContents.get(index) : new Button("", Material.AIR);
     }
 
 
@@ -171,20 +175,27 @@ public class BasicView implements IView
 
 
     @Override
-    public void show()
+    public void show(Player player)
     {
-        ViewEvent openEvent = new ViewEvent(mPlayer, this, ViewEvent.ViewAction.OPEN);
+        ViewEvent openEvent = new ViewEvent(player, this, ViewEvent.ViewAction.OPEN);
         mPlugin.getServer().getPluginManager().callEvent(openEvent);
         if (!openEvent.isCancelled())
         {
             mStatus = ViewStatus.OPENED;
-            mPlayer.openInventory(mInventory);
+            player.openInventory(mInventory);
         }
     }
 
 
     @Override
-    public void close()
+    public void show()
+    {
+        show(mPlayer);
+    }
+
+
+    @Override
+    public void close(Player player)
     {
         switch (mStatus)
         {
@@ -196,12 +207,12 @@ public class BasicView implements IView
                     case RETURN_TO_PARENT:
                     case RETURN_TO_INV:
                     {
-                        ViewEvent closeEvent = new ViewEvent(mPlayer, this, ViewEvent.ViewAction.CLOSE);
+                        ViewEvent closeEvent = new ViewEvent(player, this, ViewEvent.ViewAction.CLOSE);
                         mPlugin.getServer().getPluginManager().callEvent(closeEvent);
                         if (!closeEvent.isCancelled())
                         {
                             mStatus = ViewStatus.CLOSED;
-                            mPlayer.closeInventory();
+                            player.closeInventory();
                         }
                         break;
                     }
@@ -237,6 +248,13 @@ public class BasicView implements IView
             case CLOSED:
                 throw new IllegalStateException("Input is already closed");
         }
+    }
+
+
+    @Override
+    public void close()
+    {
+        close(mPlayer);
     }
 
 
@@ -307,5 +325,62 @@ public class BasicView implements IView
     {
         mParent = parent;
         mOnExit = ViewExitBehaviour.RETURN_TO_PARENT;
+    }
+
+
+    /**
+     * Set a slot in the container to be editable by the main player
+     *
+     * @param slot     number of the slot to change
+     * @param editable if the slot is editable
+     */
+    public void setEditable(int slot, boolean editable)
+    {
+        setEditable(slot, editable, mPlayer);
+    }
+
+
+    /**
+     * Set a slot in the container to be editable by the player
+     *
+     * @param slot     number of the slot to change
+     * @param editable if the slot is editable
+     * @param player   for which player to set the slot
+     */
+    public void setEditable(int slot, boolean editable, Player player)
+    {
+        if (editable)
+            mEditableSlots.put(player.getName(), slot, editable);
+        else
+            mEditableSlots.remove(player.getName(), slot);
+    }
+
+
+    public boolean isEditable(int slot, Player player)
+    {
+        return mEditableSlots.contains(slot, player) ? mEditableSlots.get(slot, player) : false;
+    }
+
+
+    public boolean isEditable(int slot)
+    {
+        return isEditable(slot, mPlayer);
+    }
+
+
+    public List<Integer> getEditableSlots(Player player)
+    {
+        Map<Integer, Boolean> slots = mEditableSlots.row(player.getName());
+        List<Integer> editableSlots = new ArrayList<Integer>();
+        for (Map.Entry<Integer, Boolean> entry : slots.entrySet())
+            if (entry.getValue())
+                editableSlots.add(entry.getKey());
+        return editableSlots;
+    }
+
+
+    public List<Integer> getEditableSlots()
+    {
+        return getEditableSlots(mPlayer);
     }
 }

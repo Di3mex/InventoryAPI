@@ -2,6 +2,7 @@ package de.diemex.inventorylib.inventory.service;
 
 
 import de.diemex.inventorylib.inventory.views.Button;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 /** @author Diemex */
@@ -10,8 +11,14 @@ public interface IView
     /** Shows the View. */ /*IMPORTANT!!!! A View has to call a ViewEvent with Action.OPEN for the onClickListeners to work */
     public void show();
 
+    /** Shows the View for a player. */ /*IMPORTANT!!!! A View has to call a ViewEvent with Action.OPEN for the onClickListeners to work */
+    public void show(Player player);
+
     /** Closes the View. */ /* IMPORTANT!!!! A View has to call a ViewEvent with Action.CLOSE for the onClickListeners to work */
     public void close();
+
+    /** Closes the View for a player. */ /* IMPORTANT!!!! A View has to call a ViewEvent with Action.CLOSE for the onClickListeners to work */
+    public void close(Player player);
 
     /** Sets a Button at a specific position */
     public void setButton(Button btn, int index);

@@ -4,7 +4,9 @@ package de.diemex.inventorylib.inventory;
 import de.diemex.inventorylib.events.ViewEvent;
 import de.diemex.inventorylib.inventory.service.ClickKind;
 import de.diemex.inventorylib.inventory.service.IView;
+import de.diemex.inventorylib.inventory.views.BasicView;
 import de.diemex.inventorylib.inventory.views.Button;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -54,17 +56,49 @@ public class ViewManager implements Listener
         if (player != null && mOpenViews.containsKey(player.getName()))
         {
             final IView view = mOpenViews.get(player.getName());
+            final BasicView basicView = view instanceof BasicView ? (BasicView) view : null;
+
             final int slot = event.getRawSlot();
 
             switch (event.getAction())
             {
                 case MOVE_TO_OTHER_INVENTORY:
-                    event.setCancelled(true);
+                    if (basicView != null)
+                    {
+                        if (basicView.getEditableSlots(player).size() > 0)
+                        {
+                            //Bottom -> top
+                            if (slot >= view.getSlots())
+                            {
+                                boolean moved = false;
+                                for (int editableSlot : basicView.getEditableSlots(player))
+                                {
+                                    Button btn = view.getButton(editableSlot);
+                                    if (btn.getIcon().getItemType() == Material.AIR) //empty button = not used
+                                    {
+                                        btn.setIcon(event.getCurrentItem().getType());
+                                        btn.setCount(event.getCurrentItem().getAmount());
+                                        moved = true;
+                                        break;
+                                    }
+                                }
+                                if (!moved)
+                                    event.setCancelled(true);
+                            } else if (!basicView.isEditable(slot, player))
+                                event.setCancelled(true);
+                        } else
+                        {
+                            event.setCancelled(true);
+                        }
+                    } else
+                    {
+                        event.setCancelled(true);
+                    }
                     break;
             }
 
             //Only cancel Events in the actual custom inventory. Let players still utilize their normal inventory.
-            if (view.getSlots() > slot && slot >= 0)
+            if (view.getSlots() > slot && slot >= 0 && (basicView == null || !basicView.isEditable(slot, player)))
             {
                 event.setCancelled(true);
                 Button btn = view.getButton(slot);
