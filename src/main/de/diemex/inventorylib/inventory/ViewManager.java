@@ -1,10 +1,10 @@
-package de.diemex.inventorygui.inventory;
+package de.diemex.inventorylib.inventory;
 
 
-import de.diemex.inventorygui.events.ViewEvent;
-import de.diemex.inventorygui.inventory.service.ClickKind;
-import de.diemex.inventorygui.inventory.service.IView;
-import de.diemex.inventorygui.inventory.views.Button;
+import de.diemex.inventorylib.events.ViewEvent;
+import de.diemex.inventorylib.inventory.service.ClickKind;
+import de.diemex.inventorylib.inventory.service.IView;
+import de.diemex.inventorylib.inventory.views.Button;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

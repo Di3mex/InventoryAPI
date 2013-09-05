@@ -1,4 +1,4 @@
-package de.diemex.inventorygui.inventory.service;
+package de.diemex.inventorylib.inventory.service;
 
 
 /** @author Diemex */

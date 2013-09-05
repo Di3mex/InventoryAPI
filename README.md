@@ -12,15 +12,15 @@ Repo:
 ```xml
 <repository>
     <id>EHM</id>
-    <url>http://extrahardmode.com:8081/content/groups/public//</url>
+    <url>http://extrahardmode.com:8081/content/groups/public/</url>
 </repository>
 ```
 
-InventoryAPI
+InventoryLib
 ```xml
 <dependency>
-    <groupId>de.diemex.inventorygui</groupId>
-    <artifactId>InventoryGUI</artifactId>
+    <groupId>de.diemex.inventorylib</groupId>
+    <artifactId>InventoryLib</artifactId>
     <version>0.3-SNAPSHOT</version>
     <scope>compile</scope>
 </dependency>

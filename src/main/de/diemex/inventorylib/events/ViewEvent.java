@@ -1,7 +1,7 @@
-package de.diemex.inventorygui.events;
+package de.diemex.inventorylib.events;
 
 
-import de.diemex.inventorygui.inventory.service.IView;
+import de.diemex.inventorylib.inventory.service.IView;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

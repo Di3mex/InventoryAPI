@@ -1,9 +1,9 @@
-package de.diemex.inventorygui.inventory.views;
+package de.diemex.inventorylib.inventory.views;
 
 
-import de.diemex.inventorygui.inventory.service.ClickKind;
-import de.diemex.inventorygui.inventory.service.LayoutParams;
-import de.diemex.inventorygui.inventory.service.OnClickListener;
+import de.diemex.inventorylib.inventory.service.ClickKind;
+import de.diemex.inventorylib.inventory.service.LayoutParams;
+import de.diemex.inventorylib.inventory.service.OnClickListener;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

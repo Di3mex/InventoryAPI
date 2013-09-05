@@ -1,7 +1,7 @@
-package de.diemex.inventorygui.inventory.service;
+package de.diemex.inventorylib.inventory.service;
 
 
-import de.diemex.inventorygui.inventory.views.Button;
+import de.diemex.inventorylib.inventory.views.Button;
 import org.bukkit.Material;
 import org.junit.Test;
 

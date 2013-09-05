@@ -1,4 +1,4 @@
-package de.diemex.inventorygui.mocks;
+package de.diemex.inventorylib.mocks;
 
 
 import org.bukkit.Material;

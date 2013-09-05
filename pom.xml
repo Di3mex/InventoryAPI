@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Project properties. -->
-    <groupId>de.diemex.inventorygui</groupId>
-    <artifactId>InventoryGUI</artifactId>
+    <groupId>de.diemex.inventorylib</groupId>
+    <artifactId>InventoryLib</artifactId>
     <version>0.3-SNAPSHOT</version>
-    <name>InventoryGUI</name>
+    <name>InventoryLib</name>
     <description>An API to use minecraft inventories as a GUI</description>
     <url></url>
 

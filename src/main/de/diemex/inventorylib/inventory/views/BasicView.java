@@ -1,8 +1,8 @@
-package de.diemex.inventorygui.inventory.views;
+package de.diemex.inventorylib.inventory.views;
 
 
-import de.diemex.inventorygui.events.ViewEvent;
-import de.diemex.inventorygui.inventory.service.*;
+import de.diemex.inventorylib.events.ViewEvent;
+import de.diemex.inventorylib.inventory.service.*;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -51,7 +51,7 @@ public class BasicView implements IView
      * Create a BasicView, doesn't open it yet
      *
      * @param title  title text to display on the top
-     * @param lines  how many rows do we need, one row holds 9 {@link de.diemex.inventorygui.inventory.views.Button}s
+     * @param lines  how many rows do we need, one row holds 9 {@link de.diemex.inventorylib.inventory.views.Button}s
      * @param player main player for whom this inventory is meant
      * @param plugin owning plugin for running tasks and opening the inventory
      */

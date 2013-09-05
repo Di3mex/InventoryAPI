@@ -1,8 +1,8 @@
-package de.diemex.inventorygui.inventory.views;
+package de.diemex.inventorylib.inventory.views;
 
 
-import de.diemex.inventorygui.events.ViewEvent;
-import de.diemex.inventorygui.inventory.service.*;
+import de.diemex.inventorylib.events.ViewEvent;
+import de.diemex.inventorylib.inventory.service.*;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
